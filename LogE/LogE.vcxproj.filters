@@ -18,5 +18,8 @@
     <ClInclude Include="sha256_literal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StringToEnum.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
