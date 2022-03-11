@@ -1,5 +1,5 @@
 module;
-#include <string>;
+#include <string>
 
 export module enums;
 

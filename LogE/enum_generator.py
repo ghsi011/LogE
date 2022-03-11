@@ -54,7 +54,7 @@ def generate_enums_module(enums_map):
     # open the file
     file = open("enums.ixx", "w")
     file.write("module;\n")
-    file.write("#include <string>;\n\n")
+    file.write("#include <string>\n\n")
     file.write("export module enums;\n\n")
     #for each enum
     for enum_type in enums_map:
