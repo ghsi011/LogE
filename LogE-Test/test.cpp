@@ -34,14 +34,14 @@ TEST(TestLogE, TestHash)
 TEST(TestLogE, TestLog)
 {
     LogE<LogEnum> logger;
-    logger.log(to_enum<sizeof("test_log"), LogEnum>("test_log"));
+    logger.log(to_enum<LogEnum>("test_log"));
 
-    ASSERT_TRUE(static_cast<LogEnum>(logger.get_logs().front()) == LogEnum::test_log);
+    ASSERT_TRUE(logger.get_logs().front() == LogEnum::test_log);
 }
 
 TEST(TestLogE, TestPrintLog)
 {
-    LogEnum secret = LogEnum::MySecret;
+    const LogEnum secret = LogEnum::MySecret;
     auto e = magic_enum::enum_name(secret);
 
     ASSERT_EQ(e, std::string("MySecret"));
