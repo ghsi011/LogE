@@ -9,7 +9,7 @@
 #include "LogE/LogE.hpp"
 #include "magic_enum.hpp"
 
-using namespace Loge;
+using namespace loge;
 
 enum class LogEnum : uint64_t
 {

@@ -3,7 +3,7 @@
 
 #include "LogEConcepts.hpp"
 
-namespace Loge
+namespace loge
 {
 
 template <size_t N>

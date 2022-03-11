@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <type_traits>
 
-namespace Loge
+namespace loge
 {
 
 template <typename T>

@@ -2,7 +2,7 @@
 #include <vector>
 #include "LogEConcepts.hpp"
 
-namespace Loge
+namespace loge
 {
 
 template <uint64_enum EnumType>
