@@ -24,7 +24,7 @@ constexpr uint64_t std_array_to_uint64(std::array<uint8_t, N> arr)
 }
 
 template <size_t N>
-constexpr uint64_t str_to_uint64_t(char const (&data)[N])
+consteval uint64_t str_to_uint64_t(char const (&data)[N])
 {
     auto data_hash = sha256_literal::compute(data);
     return std_array_to_uint64(data_hash);
