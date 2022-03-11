@@ -7,11 +7,14 @@
 
 #include "LogE/StringToEnum.hpp"
 #include "LogE/LogE.hpp"
+#include "magic_enum.hpp"
+
+using namespace Loge;
 
 enum class LogEnum : uint64_t
 {
-    MySecret = Loge::str_to_uint64_t("MySecret"),
-    test_log = Loge::str_to_uint64_t("test_log"),
+    MySecret = str_to_uint64_t("MySecret"),
+    test_log = str_to_uint64_t("test_log"),
     unknown = 0,
 };
 
@@ -30,8 +33,16 @@ TEST(TestLogE, TestHash)
 
 TEST(TestLogE, TestLog)
 {
-    LogE logger;
-    logger.log(Loge::str_to_uint64_t("test_log"));
+    LogE<LogEnum> logger;
+    logger.log(to_enum<sizeof("test_log"), LogEnum>("test_log"));
 
     ASSERT_TRUE(static_cast<LogEnum>(logger.get_logs().front()) == LogEnum::test_log);
+}
+
+TEST(TestLogE, TestPrintLog)
+{
+    LogEnum secret = LogEnum::MySecret;
+    auto e = magic_enum::enum_name(secret);
+
+    ASSERT_EQ(e, std::string("MySecret"));
 }
