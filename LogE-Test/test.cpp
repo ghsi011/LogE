@@ -7,26 +7,34 @@
 
 #include "LogE/StringToEnum.hpp"
 #include "LogE/LogE.hpp"
-#include "magic_enum.hpp"
+
+import enums;
 
 using namespace loge;
 
-enum class LogEnum : uint64_t
+void print_256(std::array<uint8_t, 32> value)
 {
-    MySecret = str_to_uint64_t("MySecret"),
-    test_log = str_to_uint64_t("test_log"),
-    unknown = 0,
-};
-
+    for (int i = 0; i < 32; i++) {
+        std::cout << std::hex << (int)value[i];
+    }
+    std::cout << std::endl;
+}
 TEST(TestLogE, TestHash)
 {
-    constexpr auto sha = sha256_literal::compute("MySecret");
-    const auto sha_8 = static_cast<uint64_t>(LogEnum::MySecret);
-    std::cout << std::to_string(sha_8) << std::endl;
+    auto sha1 = compute_sha_without_null("test_log");
+    auto sha = compute_sha_without_null("MySecret");
+    auto sha2 = compute_sha_without_null("another_enum_value");
+    print_256(sha1);
+    std::cout << std::endl;
+    print_256(sha);
+    std::cout << std::endl;
+    print_256(sha2);
 
-    uint64_t sha_8_tag = *reinterpret_cast<const uint64_t*>(sha.data());
-    std::cout << std::to_string(sha_8_tag) << std::endl;
-        
+    const auto sha_8 = static_cast<uint64_t>(LogEnum::MySecret);
+    std::cout << std::hex << sha_8 << std::endl;
+    uint64_t sha_8_tag = std_array_to_uint64(sha);
+    std::cout << std::hex << sha_8_tag << std::endl;
+
     EXPECT_EQ(sha_8_tag, sha_8);
     EXPECT_TRUE(true);
 }
@@ -34,15 +42,18 @@ TEST(TestLogE, TestHash)
 TEST(TestLogE, TestLog)
 {
     LogE<LogEnum> logger;
-    logger.log(to_enum<LogEnum>("test_log"));
+    LogEnum log1 = to_enum<LogEnum>("test_log");
+    logger.log(log1);
 
-    ASSERT_TRUE(logger.get_logs().front() == LogEnum::test_log);
+    ASSERT_EQ(logger.get_logs().front(), LogEnum::test_log);
+    logger.log(to_enum<LogEnum>("MySecret"));
+    logger.log(to_enum<LogEnum>("another_enum_value"));
 }
 
 TEST(TestLogE, TestPrintLog)
 {
     const LogEnum secret = LogEnum::MySecret;
-    auto e = magic_enum::enum_name(secret);
+    auto e = LogEnum_to_string(secret);
 
     ASSERT_EQ(e, std::string("MySecret"));
 }

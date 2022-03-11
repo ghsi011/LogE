@@ -1,8 +1,14 @@
 # python
 
 import argparse
+import hashlib
 import os
 import re
+
+def sha_256_64(string):
+    print(string)
+    print(hashlib.sha256(string.encode("ascii")).hexdigest())
+    return hashlib.sha256(string.encode("ascii")).hexdigest()[:16]
 
 # find all usages of to_enum<EnumType>(enum_member) function in cpp code and return a dictionary with the Enum type as key and a list of all strings given as enum_member for that Enum type as value
 # for example for a given line - to_enum<SomeEnum>("SomeEnumValue") - the function will return {"SomeEnum":["SomeEnumValue"]}
@@ -47,19 +53,21 @@ def get_all_enum_members(file_path):
 def generate_enums_module(enums_map):
     # open the file
     file = open("enums.ixx", "w")
+    file.write("module;\n")
+    file.write("#include <string>;\n\n")
     file.write("export module enums;\n\n")
     #for each enum
     for enum_type in enums_map:
         # write the enum
-        file.write("export enum " + enum_type + " {\n")
+        file.write("export enum " + enum_type + " : uint64_t {\n")
         # for each enum value
         for enum_member in enums_map[enum_type]:
             # write the enum value
-            file.write("  " + enum_member + ",\n")
+            file.write(f"  {enum_member} = 0x{sha_256_64(enum_member)},\n")
         # write the end of the enum
         file.write("};\n\n")
         # write the to_string function
-        file.write("export constexpr char* " + enum_type + "_to_string("+ enum_type + " value) {\n")
+        file.write("export constexpr std::string_view " + enum_type + "_to_string("+ enum_type + " value) {\n")
         file.write("  switch(value) {\n")
         # for each enum value
         for enum_member in enums_map[enum_type]:
