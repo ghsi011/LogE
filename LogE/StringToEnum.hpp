@@ -31,7 +31,7 @@ constexpr uint64_t str_to_uint64_t(char const (&data)[N])
 }
 
 template <uint64_enum Enum, size_t N>
-constexpr auto to_enum(char const (&data)[N])
+consteval auto to_enum(char const (&data)[N])
 {
     return static_cast<Enum>(str_to_uint64_t(data));
 }
