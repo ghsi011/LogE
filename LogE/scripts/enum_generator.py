@@ -24,52 +24,48 @@ def sha_256_64(string):
 # return map enums and enum members
 
 def get_all_enum_members(file_path):
-    # open the file
-    file = open(file_path, "r")
-    lines = file.readlines()
-    file.close()
+    try:
+        # open the file
+        lines = []
+        with open(file_path, "r") as file:
+            lines = file.readlines()
 
-    # regex to find to_enum<EnumType>(enum_member)
-    regex = re.compile(r"to_enum<(\w+)>\(\"(\w+)\"\)")
+        # regex to find to_enum<EnumType>(enum_member)
+        enum_regex = re.compile(r"to_enum<(\w+)>\(\"(\w+)\"\)")
 
-    # map enums and enum members
-    enums = {}
+        # map enums and enum members
+        enums = {}
 
-    # for each line
-    for line in lines:
-        # find all usages of to_enum<EnumType>(enum_member)
-        matches = regex.findall(line)
-        # for each match
-        for match in matches:
-            # get the enum type and the enum member
-            enum_type = match[0]
-            enum_member = match[1]
-            # if the enum type is not in the map
-            if enum_type not in enums:
-                # add it
-                enums[enum_type] = []
-            # if the enum member is not in the map
-            if enum_member not in enums[enum_type]:
-                # add it
-                enums[enum_type].append(enum_member)
+        for line in lines:
+            # find all usages of to_enum<EnumType>(enum_member)
+            matches = enum_regex.findall(line)
+            # for each match
+            for match in matches:
+                # get the enum type and the enum member
+                enum_type = match[0]
+                enum_member = match[1]
+                # if the enum type is not in the map
+                if enum_type not in enums:
+                    # add it
+                    enums[enum_type] = []
+                # if the enum member is not in the map
+                if enum_member not in enums[enum_type]:
+                    # add it
+                    enums[enum_type].append(enum_member)
 
-    # return the map
-    return enums
+        # return the map
+        return enums
+    except:
+        return {}
 
-
-# given a map of enums and enum values generate an hpp file named enums.hpp defining the enums in cpp
-def generate_enums_module(enums_map, output_file):
-    # open the file
-    enums_file = open(output_file, "w")
-    enums_file_to_string = open(f"{'to_string_'}{output_file}", "w")
-
+def generate_enums_module_imp(enums_map, enums_file, to_string_file):
     enums_file.write("module;\n")
     enums_file.write("#include <cstdint>\n\n")
     enums_file.write("export module enums;\n\n")
-    enums_file_to_string.write("module;\n")
-    enums_file_to_string.write("#include <string>\n\n")
-    enums_file_to_string.write("export module enums_to_string;\n\n")
-    enums_file_to_string.write("import enums;\n\n")
+    to_string_file.write("module;\n")
+    to_string_file.write("#include <string>\n\n")
+    to_string_file.write("export module enums_to_string;\n\n")
+    to_string_file.write("import enums;\n\n")
     # for each enum
     for enum_type in enums_map:
         # write the enum
@@ -83,21 +79,25 @@ def generate_enums_module(enums_map, output_file):
         # write the end of the enum
         enums_file.write("};\n\n")
         # write the to_string function
-        enums_file_to_string.write("export constexpr std::string_view " + enum_type + "_to_string(" + enum_type + " value) {\n")
-        enums_file_to_string.write("  switch(value) {\n")
+        to_string_file.write("export constexpr std::string_view " + enum_type + "_to_string(" + enum_type + " value) {\n")
+        to_string_file.write("  switch(value) {\n")
         # for each enum value
         for commit in enums_map[enum_type]:
             for enum_member in enums_map[enum_type][commit]:
                 # write the case
-                enums_file_to_string.write("    case " + enum_type + "::" + enum_member + ": return \"" + enum_member + "\";\n")
+                to_string_file.write("    case " + enum_type + "::" + enum_member + ": return \"" + enum_member + "\";\n")
         # write the default
-        enums_file_to_string.write("    default: return \"\";\n")
+        to_string_file.write("    default: return \"\";\n")
         # write the end of the function
-        enums_file_to_string.write("  }\n")
-        enums_file_to_string.write("}\n\n")
-    # close the file
-    enums_file.close()
-    enums_file_to_string.close()
+        to_string_file.write("  }\n")
+        to_string_file.write("}\n\n")
+
+# given a map of enums and enum values generate an hpp file named enums.hpp defining the enums in cpp
+def generate_enums_module(enums_map, output_file):
+    # open the file
+    with open(output_file, 'w') as enums_file:
+        with open(f"{'to_string_'}{output_file}", 'w') as to_string_file:
+            generate_enums_module_imp(enums_map, enums_file, to_string_file)
 
 
 def get_enums_map_from_existing_file(enums_file_path):
