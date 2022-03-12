@@ -23,7 +23,7 @@ export constexpr std::string_view LogEnum_to_string(LogEnum value) {
 }
 
 export enum class MyEnum : uint64_t {
-// commit: e7ecf7b9
+// commit: 79d05e2c
   my_enum_val = 0x5cae3ca21d2dbf1b,
   my_enum_val2 = 0xa7e090c4c46a38a3,
 // commit: f07955ca

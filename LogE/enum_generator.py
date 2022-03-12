@@ -129,6 +129,8 @@ def merge_old_and_new_enums(old_enums, new_enums):
             is_new = True
             for commit in old_enums[enum_type]:
                 if enum_value in old_enums[enum_type][commit]:
+                    if commit == "deprecated":
+                        break
                     is_new = False
                     if commit not in combined_enums[enum_type]:
                         combined_enums[enum_type][commit] = []
