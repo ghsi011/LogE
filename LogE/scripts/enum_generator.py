@@ -51,12 +51,11 @@ def get_all_enum_members(file_path: str) -> dict:
                     enums_map[enum] = []
                 # if the enum member is not in the map
                 if enum_value not in enums_map[enum]:
-                    # add it
                     enums_map[enum].append(enum_value)
 
-        # return the map
         return enums_map
-    except:
+    except Exception as e:
+        print(e)
         return {}
 
 

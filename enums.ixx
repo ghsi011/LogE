@@ -10,6 +10,8 @@ export enum class LogEnum : uint64_t {
   another_enum_value = 0xe7bacff9ede5dd6b,
 // commit: f07955ca
   another_enum_value1 = 0x6a85389d5f0c51b0,
+// commit: 2e9eb541
+  another_enum_value7 = 0xb9d1685b8a78bccf,
 };
 
 export enum class MyEnum : uint64_t {

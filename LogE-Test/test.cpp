@@ -50,6 +50,7 @@ TEST(TestLogE, TestLog)
     logger.log(to_enum<LogEnum>("MySecret"));
     logger.log(to_enum<LogEnum>("another_enum_value"));
     logger.log(to_enum<LogEnum>("another_enum_value1"));
+    logger.log(to_enum<LogEnum>("another_enum_value7"));
     logger2.log(to_enum<MyEnum>("my_enum_val"));
     logger2.log(to_enum<MyEnum>("my_enum_val2"));
     logger2.log(to_enum<MyEnum>("my_enum_val3"));

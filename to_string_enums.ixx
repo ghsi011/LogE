@@ -11,6 +11,7 @@ export constexpr std::string_view LogEnum_to_string(LogEnum value) {
     case LogEnum::MySecret: return "MySecret";
     case LogEnum::another_enum_value: return "another_enum_value";
     case LogEnum::another_enum_value1: return "another_enum_value1";
+    case LogEnum::another_enum_value7: return "another_enum_value7";
     default: return "";
   }
 }
