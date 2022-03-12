@@ -60,37 +60,44 @@ def get_all_enum_members(file_path):
 # given a map of enums and enum values generate an hpp file named enums.hpp defining the enums in cpp
 def generate_enums_module(enums_map, output_file):
     # open the file
-    file = open(output_file, "w")
-    file.write("module;\n")
-    file.write("#include <string>\n\n")
-    file.write("export module enums;\n\n")
+    enums_file = open(output_file, "w")
+    enums_file_to_string = open(f"{'to_string_'}{output_file}", "w")
+
+    enums_file.write("module;\n")
+    enums_file.write("#include <cstdint>\n\n")
+    enums_file.write("export module enums;\n\n")
+    enums_file_to_string.write("module;\n")
+    enums_file_to_string.write("#include <string>\n\n")
+    enums_file_to_string.write("export module enums_to_string;\n\n")
+    enums_file_to_string.write("import enums;\n\n")
     # for each enum
     for enum_type in enums_map:
         # write the enum
-        file.write("export enum class " + enum_type + " : uint64_t {\n")
+        enums_file.write("export enum class " + enum_type + " : uint64_t {\n")
         # for each enum value
         for commit in enums_map[enum_type]:
-            file.write(f"// commit: {commit}\n")
+            enums_file.write(f"// commit: {commit}\n")
             for enum_member in enums_map[enum_type][commit]:
                 # write the enum value
-                file.write(f"  {enum_member} = 0x{sha_256_64(enum_member)},\n")
+                enums_file.write(f"  {enum_member} = 0x{sha_256_64(enum_member)},\n")
         # write the end of the enum
-        file.write("};\n\n")
+        enums_file.write("};\n\n")
         # write the to_string function
-        file.write("export constexpr std::string_view " + enum_type + "_to_string(" + enum_type + " value) {\n")
-        file.write("  switch(value) {\n")
+        enums_file_to_string.write("export constexpr std::string_view " + enum_type + "_to_string(" + enum_type + " value) {\n")
+        enums_file_to_string.write("  switch(value) {\n")
         # for each enum value
         for commit in enums_map[enum_type]:
             for enum_member in enums_map[enum_type][commit]:
                 # write the case
-                file.write("    case " + enum_type + "::" + enum_member + ": return \"" + enum_member + "\";\n")
+                enums_file_to_string.write("    case " + enum_type + "::" + enum_member + ": return \"" + enum_member + "\";\n")
         # write the default
-        file.write("    default: return \"\";\n")
+        enums_file_to_string.write("    default: return \"\";\n")
         # write the end of the function
-        file.write("  }\n")
-        file.write("}\n\n")
+        enums_file_to_string.write("  }\n")
+        enums_file_to_string.write("}\n\n")
     # close the file
-    file.close()
+    enums_file.close()
+    enums_file_to_string.close()
 
 
 def get_enums_map_from_existing_file(enums_file_path):
