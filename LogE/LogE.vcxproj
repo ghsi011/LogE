@@ -25,9 +25,6 @@
     <ClInclude Include="StringToEnum.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LogE.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="enum_generator.py" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

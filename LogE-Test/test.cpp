@@ -42,12 +42,15 @@ TEST(TestLogE, TestHash)
 TEST(TestLogE, TestLog)
 {
     LogE<LogEnum> logger;
+    LogE<MyEnum> logger2;
     LogEnum log1 = to_enum<LogEnum>("test_log");
     logger.log(log1);
 
     ASSERT_EQ(logger.get_logs().front(), LogEnum::test_log);
     logger.log(to_enum<LogEnum>("MySecret"));
     logger.log(to_enum<LogEnum>("another_enum_value"));
+    logger2.log(to_enum<MyEnum>("my_enum_val"));
+    logger2.log(to_enum<MyEnum>("my_enum_val2"));
 }
 
 TEST(TestLogE, TestPrintLog)

@@ -36,7 +36,7 @@ constexpr sha256_literal::HashType compute_sha_without_null(char const (&Data)[N
         return sha256_literal::compute(no_null);
     }
 
-    return compute_sha_without_null(Data);
+    return sha256_literal::compute(Data);
 }
 
 template <size_t N>
