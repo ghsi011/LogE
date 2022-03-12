@@ -8,8 +8,17 @@ import subprocess
 from operator import ge
 import typing
 
+def is_git_installed():
+    try:
+        subprocess.call(['git', '--version'])
+    except FileNotFoundError:
+        return False
+    else:
+        return True
 
 def get_last_git_commit_hash() -> str:
+    if not is_git_installed():
+        return "no git"
     return subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode('ascii').strip()[:8]
 
 
