@@ -115,11 +115,11 @@ enum_regex = re.compile(r"to_enum<(\w+)>\(\"(\w+)\"\)")
 
 ## Why is this good for server client applications?
 * Using this for logging, you can send enum values (8 byte integers) over the network instead of costly strings.
-* in addition the client application only needs the enums themselves and doesn't have to link with the to_string module, saving on size(if you have lots of logs) and hiding your log strings in case they are sensitive.
-* for applications already using enums for logs this:
-    * reduces manual maintenance of large enum headers - auto generated based on usage in source 
-    * handles for you backwards compatibility and version control 
-        * ensuring mis-matched clients and server can still communicate using still-valid and deprecated values 
+* In addition the client application only needs the enums themselves and doesn't have to link with the to_string module, saving on size(if you have lots of logs) and hiding your log strings in case they are sensitive.
+* For applications already using enums for logs this:
+    * reduces manual maintenance of large enum headers - auto generated based on usage in source code 
+    * handles backwards compatibility and version control 
+        * ensuring mis-matched clients and servers can still communicate using still-valid and deprecated values 
         
 
 
