@@ -151,4 +151,4 @@ export enum class LogEnum : uint64_t {
 ## TODO 
 * Support generating header versions
 * Consider making StringToEnum.hpp a module too
-* Write actual Logger using this method 
+* Flesh out LogE to better demonstrate the logger 
