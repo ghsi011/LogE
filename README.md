@@ -38,10 +38,7 @@ int main()
 
     if(result != LogEnum::success_status){
         std::cout << LogEnum_to_string(result).c_str() << std::endl; 
-        return 0;
     }
-
-    return 1;
 }
 ```
 
