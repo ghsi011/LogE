@@ -13,13 +13,6 @@ import enums_to_string;
 
 using namespace loge;
 
-void print_256(std::array<uint8_t, 32> value)
-{
-    for (int i = 0; i < 32; i++) {
-        std::cout << std::hex << (int)value[i];
-    }
-    std::cout << std::endl;
-}
 TEST(TestLogE, TestHash)
 {
     auto sha_success_status = compute_sha_without_null("success_status");
