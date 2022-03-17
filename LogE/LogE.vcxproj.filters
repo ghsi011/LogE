@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="scripts">
+      <UniqueIdentifier>{048a4abb-8b78-4e55-9216-958ff7f098a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sha256_literal.h">
@@ -29,8 +32,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="enum_generator.py">
-      <Filter>Source Files</Filter>
+    <None Include="scripts\enum_generator.py">
+      <Filter>scripts</Filter>
     </None>
   </ItemGroup>
 </Project>

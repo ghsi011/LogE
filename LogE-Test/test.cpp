@@ -22,12 +22,12 @@ void print_256(std::array<uint8_t, 32> value)
 }
 TEST(TestLogE, TestHash)
 {
-    auto sha_my_secret = compute_sha_without_null("MySecret");
-    const auto sha_my_secret_8_bytes = static_cast<uint64_t>(LogEnum::MySecret);
+    auto sha_success_status = compute_sha_without_null("success_status");
+    const auto sha_success_status_8_bytes = static_cast<uint64_t>(LogEnum::success_status);
 
-    uint64_t test_std_array_sha = std_array_to_uint64(sha_my_secret);
+    uint64_t test_std_array_sha = std_array_to_uint64(sha_success_status);
 
-    EXPECT_EQ(test_std_array_sha, sha_my_secret_8_bytes);
+    EXPECT_EQ(test_std_array_sha, sha_success_status_8_bytes);
     EXPECT_TRUE(true);
 }
 
@@ -39,16 +39,14 @@ TEST(TestLogE, TestLog)
     logger.log(log1);
 
     ASSERT_EQ(logger.get_logs().front(), LogEnum::test_log);
-
-    logger.log(to_enum<LogEnum>("MySecret"));
     logger.log(to_enum<LogEnum>("success_status"));
     logger.log(to_enum<LogEnum>("other_failure_status"));
 }
 
 TEST(TestLogE, TestPrintLog)
 {
-    const LogEnum secret = LogEnum::MySecret;
-    auto e = LogEnum_to_string(secret);
+    const LogEnum success_status = LogEnum::success_status;
+    auto e = LogEnum_to_string(success_status);
 
-    ASSERT_EQ(e, std::string("MySecret"));
+    ASSERT_EQ(e, std::string("success_status"));
 }

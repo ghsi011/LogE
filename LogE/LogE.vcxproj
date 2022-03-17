@@ -25,7 +25,7 @@
     <ClInclude Include="StringToEnum.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="enum_generator.py" />
+    <None Include="scripts\enum_generator.py" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
