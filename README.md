@@ -16,6 +16,8 @@ main.cpp:
 import enums; // auto generated on build
 import enums_to_string; // auto generated on build
 
+#include "LogE/StringToEnum.hpp"
+
 using namespace loge;
 
 LogEnum do_work()
@@ -140,3 +142,8 @@ export enum class LogEnum : uint64_t {
   some_failure_status = 0xc668c49b3be6432e,
 };
 ```
+
+## TODO 
+* Support generating header versions
+* Consider making StringToEnum.hpp a module too
+* Write actual Logger using this method 
