@@ -9,6 +9,7 @@
 #include "LogE/LogE.hpp"
 
 import enums;
+import enums_to_string;
 
 using namespace loge;
 
@@ -21,44 +22,33 @@ void print_256(std::array<uint8_t, 32> value)
 }
 TEST(TestLogE, TestHash)
 {
-   /* auto sha1 = compute_sha_without_null("test_log");
-    auto sha = compute_sha_without_null("MySecret");
-    auto sha2 = compute_sha_without_null("another_enum_value");
-    print_256(sha1);
-    std::cout << std::endl;
-    print_256(sha);
-    std::cout << std::endl;
-    print_256(sha2);
+    auto sha_my_secret = compute_sha_without_null("MySecret");
+    const auto sha_my_secret_8_bytes = static_cast<uint64_t>(LogEnum::MySecret);
 
-    const auto sha_8 = static_cast<uint64_t>(LogEnum::MySecret);
-    std::cout << std::hex << sha_8 << std::endl;
-    uint64_t sha_8_tag = std_array_to_uint64(sha);
-    std::cout << std::hex << sha_8_tag << std::endl;
+    uint64_t test_std_array_sha = std_array_to_uint64(sha_my_secret);
 
-    EXPECT_EQ(sha_8_tag, sha_8);
-    EXPECT_TRUE(true);*/
+    EXPECT_EQ(test_std_array_sha, sha_my_secret_8_bytes);
+    EXPECT_TRUE(true);
 }
 
 TEST(TestLogE, TestLog)
 {
     LogE<LogEnum> logger;
-    LogE<MyEnum> logger2;
+    
     LogEnum log1 = to_enum<LogEnum>("test_log");
     logger.log(log1);
 
     ASSERT_EQ(logger.get_logs().front(), LogEnum::test_log);
 
-    logger.log(to_enum<LogEnum>("another_enum_value1"));
-    logger.log(to_enum<LogEnum>("another_enum_value7"));
-    logger2.log(to_enum<MyEnum>("my_enum_val"));
-    logger2.log(to_enum<MyEnum>("my_enum_val2"));
-    logger2.log(to_enum<MyEnum>("my_enum_val3"));
+    logger.log(to_enum<LogEnum>("MySecret"));
+    logger.log(to_enum<LogEnum>("success_status"));
+    logger.log(to_enum<LogEnum>("other_failure_status"));
 }
 
 TEST(TestLogE, TestPrintLog)
 {
-    /*const LogEnum secret = LogEnum::MySecret;
+    const LogEnum secret = LogEnum::MySecret;
     auto e = LogEnum_to_string(secret);
 
-    ASSERT_EQ(e, std::string("MySecret"));*/
+    ASSERT_EQ(e, std::string("MySecret"));
 }

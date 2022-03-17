@@ -49,7 +49,6 @@ consteval uint64_t str_to_uint64_t(char const (&data)[N])
 template <uint64_enum Enum, size_t N>
 consteval auto to_enum(char const (&data)[N])
 {
-    //todo verify that the enum value is indeed a member
     return static_cast<Enum>(str_to_uint64_t(data));
 }
 }
