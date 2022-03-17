@@ -6,4 +6,5 @@ Multi-Arch: same
 Abi: e40c1a0d33cc96bce3234174552270e0f15f36dc0916a83ede193d76d5edda11
 Description: Header-only C++17 library provides static reflection for enums, work with any enum type without any macro or boilerplate code.
 Type: Port
-Status: install ok installed
+Status: purge ok not-installed
+
