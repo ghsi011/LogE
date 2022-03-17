@@ -86,7 +86,7 @@ export constexpr std::string_view LogEnum_to_string(LogEnum value) {
 ```
 
 ## What is happening here?
-This is  enum_generator.py usage:
+enum_generator.py usage:
 ```
 \LogE\scripts>python enum_generator.py -h
 usage: enum_generator.py [-h] [-o OUTPUT_PATH] [-m MODULE_NAME] root_dir extensions
