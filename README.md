@@ -152,3 +152,6 @@ export enum class LogEnum : uint64_t {
 * Support generating header versions
 * Consider making StringToEnum.hpp a module too
 * Flesh out LogE to better demonstrate the logger 
+
+Credits:
+*  sha256 compile time hash - https://github.com/aguinet/sha256_literal
